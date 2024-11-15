@@ -10,10 +10,10 @@ Config.TaxiStopCommand = 'stoptaxi'
 Config.AutopilotCommand = "autopilot"
 Config.AutopilotstopCommand = "autopilotstop"
 Config.Fuel = "LegacyFuel" -- name of the resource you use for fuel
-Config.Drawtext = 'ps-ui' --supports ps-ui / qb
+Config.Drawtext = 'ox' --supports ps-ui / qb / ox
 
-Config.TaxiLimit = 3 --either a number or false to disable limit // means only x number of ai taxi can be used at same time. otherwise players have to wait until a taxi si free before getting one
-Config.TaxiSpawnsAtClosestDepot = true -- if true will spawn on a valid road within 1000 gta units of player // if false will only spawn at closest depot from list below
+Config.TaxiLimit = 3 --either a number or false to disable limit // means only x number of ai taxi can be used at same time. otherwise players have to wait until a taxi is free before getting one
+Config.TaxiSpawnsAtClosestDepot = false -- if true will spawn on a valid road within 1000 gta units of player // if false will only spawn at closest depot from list below
 Config.TaxiDepots = { --will only use these if above config toggle is true (possible longer wait times)
     vector4(912.49, -178.93, 74.27, 236.15), -- downtown cab office
     vector4(-1895.12, -367.7, 48.97, 53.24), --crastenburg hotel

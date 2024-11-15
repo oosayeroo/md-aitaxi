@@ -27,12 +27,16 @@ local function ShowDrawtext(text,show)
 		else
 			exports['ps-ui']:HideText()
 		end
-	end
-end
-
-local function FuelSystem(vehicle,amount)
-	if config.Fuel == 'LegacyFuel' then
-		exports['LegacyFuel']:SetFuel(vehicle, amount)
+	elseif config.Drawtext == 'ox' then
+		if show then 
+			lib.showTextUI(text, {
+				position = "right-center",
+				icon = 'taxi',
+				iconAnimation = 'bounce',
+			})
+		else
+			lib.hideTextUI()
+		end
 	end
 end
 
@@ -137,21 +141,25 @@ RegisterNetEvent('md-aitaxi:client:calltaxi', function()
 			local aiTaxi = nil
 			local taxi = nil
 
-            if not config.TaxiSpawnsAtClosestDepot then
-            	aiTaxi = CreateVehicle(config.TaxiModel, nodeCoord.x, nodeCoord.y, nodeCoord.z, 180.0, true, true)
-            	taxi = CreatePed(26, joaat(taxiDriver), nodeCoord.x, nodeCoord.y, nodeCoord.z, 268.9422, true, false)
-			else
-				local closestDepot = GetClosestDepot(pedCoord)
+            if config.TaxiSpawnsAtClosestDepot then
+            	local closestDepot = GetClosestDepot(pedCoord)
 				aiTaxi = CreateVehicle(config.TaxiModel, closestDepot.x, closestDepot.y, closestDepot.z, 180.0, true, true)
             	taxi = CreatePed(26, joaat(taxiDriver), closestDepot.x, closestDepot.y, closestDepot.z, 268.9422, true, false)
 				SetEntityHeading(aiTaxi, closestDepot.w)
+			else
+				aiTaxi = CreateVehicle(config.TaxiModel, nodeCoord.x, nodeCoord.y, nodeCoord.z, 180.0, true, true)
+            	taxi = CreatePed(26, joaat(taxiDriver), nodeCoord.x, nodeCoord.y, nodeCoord.z, 268.9422, true, false)
 			end
+
+			repeat Wait(10)
+			until aiTaxi ~= nil and taxi ~= nil
 
             SetVehicleOnGroundProperly(aiTaxi)
             SetEntityAsMissionEntity(aiTaxi)
 			SortTaxiBlip(aiTaxi)
             SetPedIntoVehicle(taxi, aiTaxi, -1)
-			FuelSystem(aitaxi, 100.0)
+			SetVehicleFuelLevel(aiTaxi, 100.0)
+			SetBlockingOfNonTemporaryEvents(taxi, true)
 
             TaskVehicleDriveToCoordLongrange(taxi, aiTaxi, pedCoord.x, pedCoord.y, pedCoord.z, config.PassiveDriveSpeed, config.PassiveDrivingStyle, 1.0)
             Wait(1000)
