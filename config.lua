@@ -9,8 +9,7 @@ Config.TaxiCommand = "aitaxi" -- command to start taxi ride
 Config.TaxiStopCommand = 'stoptaxi'
 Config.AutopilotCommand = "autopilot"
 Config.AutopilotstopCommand = "autopilotstop"
-Config.Fuel = "LegacyFuel" -- name of the resource you use for fuel
-Config.Drawtext = 'ox' --supports ps-ui / qb / ox
+Config.Drawtext = 'qb' --supports ps-ui / qb / ox
 
 Config.TaxiLimit = 3 --either a number or false to disable limit // means only x number of ai taxi can be used at same time. otherwise players have to wait until a taxi is free before getting one
 Config.TaxiSpawnsAtClosestDepot = false -- if true will spawn on a valid road within 1000 gta units of player // if false will only spawn at closest depot from list below
